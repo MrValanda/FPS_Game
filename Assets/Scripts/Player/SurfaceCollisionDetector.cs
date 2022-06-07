@@ -5,8 +5,8 @@ public class SurfaceCollisionDetector : MonoBehaviour
 {
     [SerializeField] private AnglesCollisions _anglesCollisions;
 
-    public UnityAction Landing;
-    public UnityAction InAir;
+    public UnityEvent Landing;
+    public UnityEvent InAir;
     public Vector3 GroundContactNormal { get; private set; }
     public Vector3 SteepNormal { get; private set; }
 

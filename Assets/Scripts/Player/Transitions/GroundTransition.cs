@@ -7,13 +7,13 @@ public class GroundTransition : Transition
     protected override void Enable()
     {
         base.Enable();
-        _playerConfiguration.SurfaceCollisionDetector.Landing += OnLanding;
+        _playerConfiguration.SurfaceCollisionDetector.Landing.AddListener(OnLanding);
     }
     
     protected override void Disable()
     {
         base.Disable();
-        _playerConfiguration.SurfaceCollisionDetector.Landing -= OnLanding;
+        _playerConfiguration.SurfaceCollisionDetector.Landing.RemoveListener(OnLanding);
 
     }
 

@@ -243,3 +243,4 @@ MonoBehaviour:
   _shootParticle: {fileID: 0}
   <RateFire>k__BackingField: 2
   _numberBulletsPerShot: 6
+  _spreadFactor: 1

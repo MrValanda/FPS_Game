@@ -7,15 +7,15 @@ public class JumpTransition : Transition
    protected override void Enable()
    {
       base.Enable();
-      _playerConfiguration.SurfaceCollisionDetector.InAir += OnInAir;
-      _playerConfiguration.InputListener.JumpKeyCodePress += OnJumpKeyCodePressed;
+      _playerConfiguration.SurfaceCollisionDetector.InAir.AddListener(OnInAir);
+      _playerConfiguration.InputListener.JumpKeyCodePress.AddListener(OnJumpKeyCodePressed);
    }
 
    protected override void Disable()
    {
       base.Enable();
-      _playerConfiguration.SurfaceCollisionDetector.InAir -= OnInAir;
-      _playerConfiguration.InputListener.JumpKeyCodePress -= OnJumpKeyCodePressed;
+      _playerConfiguration.SurfaceCollisionDetector.InAir.RemoveListener(OnInAir);
+      _playerConfiguration.InputListener.JumpKeyCodePress.RemoveListener(OnJumpKeyCodePressed);
    }
 
    private void OnJumpKeyCodePressed()

@@ -29,7 +29,7 @@ public class Bullet : MonoBehaviour
 
    private void OnTriggerEnter(Collider other)
    {
-      if (other.TryGetComponent(out Bullet _)) return;
+      if (other.TryGetComponent(out Bullet _) || other.TryGetComponent(out Weapon _)) return;
       
       if (other.TryGetComponent(out IDamageable damageable))
       {

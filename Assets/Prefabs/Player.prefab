@@ -73,8 +73,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c02cb36eafc84ac4198baaeceee42f45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentWeapon: {fileID: 3843331713474643386, guid: 533ecf4d32ca8f048bedf57811ab3ec9, type: 3}
+  _inputListener: {fileID: 7861285836884672980}
   _parentForWeapon: {fileID: 1038033172}
+  _itemRecognizer: {fileID: 6266248594072609255}
+  _inventorySize: 4
 --- !u!1 &7159950798820813599
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,6 +345,7 @@ Transform:
   - {fileID: 7861285836884672981}
   - {fileID: 1169491030}
   - {fileID: 7927293833725975648}
+  - {fileID: 2375558017864394703}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -438,6 +441,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _anglesCollisions: {fileID: 11400000, guid: 7322c90c1fc19924fa6b006632cec05d, type: 2}
+  Landing:
+    m_PersistentCalls:
+      m_Calls: []
+  InAir:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7861285836877412540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -496,7 +505,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _jumpKeyCode: 32
-  _shootKeyCode: 323
+  _useItemKeyCode: 323
+  _takeItemKeyCode: 101
+  JumpKeyCodePress:
+    m_PersistentCalls:
+      m_Calls: []
+  UseItemKeyCodePress:
+    m_PersistentCalls:
+      m_Calls: []
+  TakeItemKeyCodePress:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7861285837069498988
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,3 +617,52 @@ MonoBehaviour:
   _sensitivity: 1
   _minAngleY: -90
   _maxAngleY: 90
+--- !u!1 &8865606321011121443
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2375558017864394703}
+  - component: {fileID: 6266248594072609255}
+  m_Layer: 0
+  m_Name: ItemRecognizer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2375558017864394703
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8865606321011121443}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7861285836877412482}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6266248594072609255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8865606321011121443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fbc76105217ed548ae979bc27d0f719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spaceOrientation: {fileID: 7861285837069498985}
+  _recognitionDistance: 2
+  _recognitionCooldown: 2
+  ItemRecognition:
+    m_PersistentCalls:
+      m_Calls: []

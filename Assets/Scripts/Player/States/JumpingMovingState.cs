@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class JumpingMovingState : MovingState
@@ -8,28 +9,32 @@ public class JumpingMovingState : MovingState
     [SerializeField, Range(0f, 100f)] private float _cooldownJump = .1f;
     
     private int _remainedJumpCount;
-    private bool _canJump = true;
+    private bool _canJump => _timeAfterJump >= _cooldownJump;
 
+    private float _timeAfterJump;
     protected override void OnEnter()
     {
         base.OnEnter();
-        _playerConfiguration.InputListener.JumpKeyCodePress += OnJumpKeyCodePress;
+        _playerConfiguration.InputListener.JumpKeyCodePress.AddListener(OnJumpKeyCodePress);
     }
 
     protected override void OnExit()
     {
         base.OnExit();
         ResetJumpCount();
-        _canJump = true;
-        _playerConfiguration.InputListener.JumpKeyCodePress -= OnJumpKeyCodePress;
+        _timeAfterJump = _cooldownJump;
+        _playerConfiguration.InputListener.JumpKeyCodePress.RemoveListener(OnJumpKeyCodePress);
 
     }
-    
+    private void Update()
+    {
+        _timeAfterJump += Time.deltaTime;
+    }
+
     private void OnJumpKeyCodePress()
     {
         if (_canJump)
         {
-            _canJump = false;
             Jump();
         }
     }
@@ -47,29 +52,27 @@ public class JumpingMovingState : MovingState
         Debug.Log(_remainedJumpCount);
         
         if (_remainedJumpCount == 0) return;
+        _timeAfterJump = 0;
+
         jumpDirection = Vector3.Lerp(jumpDirection, Vector3.up, _jumpDirectionInterpolationCoefficient).normalized;
         
-        ResetVelocityY();
+        ResetYVelocity();
         
         _playerConfiguration.Rigidbody.AddForce(_jumpForce * jumpDirection, ForceMode.Impulse);
         
         _remainedJumpCount--;
 
-        Invoke(nameof(AllowJumping), _cooldownJump);
 
     }
 
-    private void ResetVelocityY()
+    private void ResetYVelocity()
     {
         var velocity = _playerConfiguration.Rigidbody.velocity;
         velocity = new Vector3(velocity.x, 0f, velocity.z);
         
         _playerConfiguration.Rigidbody.velocity = velocity;
     }
-    private void AllowJumping()
-    {
-        _canJump = true;
-    }
+   
     private void ResetJumpCount()
     {
         _remainedJumpCount = _countJump;
