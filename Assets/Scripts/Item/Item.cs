@@ -6,6 +6,6 @@ public abstract class Item : MonoBehaviour
 
     public abstract void UseItem(Vector3 direction);
     public abstract void SelectItem();
-    public abstract void DropItem();
-   
+    public abstract void DropItem(Vector3 direction,int force);
+
 }

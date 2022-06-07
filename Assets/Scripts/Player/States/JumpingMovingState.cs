@@ -49,7 +49,6 @@ public class JumpingMovingState : MovingState
             ResetJumpCount();
         }
 
-        Debug.Log(_remainedJumpCount);
         
         if (_remainedJumpCount == 0) return;
         _timeAfterJump = 0;

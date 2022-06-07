@@ -9,7 +9,7 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField,Range(0,100f)] private int _inventorySize = 4;
     
     private List<Item> _inventory;
-    private Item _currentItem;
+    private int _currentItemIndex = -1;
 
     private void OnEnable()
     {
@@ -31,32 +31,46 @@ public class PlayerInventory : MonoBehaviour
         if (_inventory.Count < _inventorySize)
         {
             _inventory.Add(newItem);
-
-            Destroy(newItem.gameObject);
-
+            newItem.gameObject.SetActive(false);
         }
-        Debug.Log("Take " + _inventory.Count);
     }
 
-    private void DropCurrentItem(Vector3 dropDirection)
+    public void DropCurrentItem()
     {
-        
+        _inventory.RemoveAt(_currentItemIndex);
+        _currentItemIndex = -1;
+        if (_inventory.Count > 0)
+            SelectItemByIndex(Random.Range(0, _inventory.Count));
     }
 
     private void SelectItemByIndex(int index)
     {
         index = Mathf.Clamp(index, 0, _inventory.Count - 1);
-        if (_currentItem != null)
-            Destroy(_currentItem.gameObject);
-        _currentItem = Instantiate(_inventory[index], _parentForWeapon);
-        _currentItem.transform.localPosition=Vector3.zero;
-        _currentItem.SelectItem();
+        if (_currentItemIndex != -1)
+        {
+            _inventory[_currentItemIndex].gameObject.SetActive(false);
+        }
+        
+        _inventory[index].gameObject.SetActive(true);
+        _inventory[index].transform.position = _parentForWeapon.position;
+        _inventory[index].transform.rotation = _parentForWeapon.rotation;
+        _inventory[index].transform.SetParent(_parentForWeapon);
+        _inventory[index].SelectItem();
+        
+        _currentItemIndex = index;
     }
 
    public bool TryGetCurrentItem(out Item currentItem)
    {
-       currentItem = _currentItem;
-      return currentItem!=null;
+       Debug.Log(_currentItemIndex);
+       if (_currentItemIndex == -1)
+       {
+           currentItem = null;
+           return false;
+       }
+       
+       currentItem = _inventory[_currentItemIndex];
+       return true;
    }
 
    private void OnTakeItemKeyCodePress()

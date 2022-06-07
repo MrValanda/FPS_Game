@@ -38,11 +38,14 @@ public class Weapon : Item
       _rigidbody.isKinematic = true;
    }
 
-   public override void DropItem()
+   public override void DropItem(Vector3 direction,int force)
    {
       if (_rigidbody == null)
          _rigidbody = GetComponent<Rigidbody>();
       _rigidbody.isKinematic = false;
+      _rigidbody.AddForce(direction * force,ForceMode.VelocityChange);
+      _rigidbody.AddTorque(Vector3.right * force, ForceMode.VelocityChange);
+      transform.parent = null;
    }
 
    private void Shoot(Vector3 moveDirection)
