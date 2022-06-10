@@ -73,9 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c02cb36eafc84ac4198baaeceee42f45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputListener: {fileID: 7861285836884672980}
   _parentForWeapon: {fileID: 1038033172}
-  _itemRecognizer: {fileID: 6266248594072609255}
   _inventorySize: 4
 --- !u!1 &7159950798820813599
 GameObject:
@@ -88,7 +86,7 @@ GameObject:
   - component: {fileID: 7927293833725975648}
   - component: {fileID: 7682641426988358126}
   m_Layer: 0
-  m_Name: WeaponShootController
+  m_Name: InventoryManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -122,6 +120,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerConfiguration: {fileID: 7861285836877412540}
   _playerInventory: {fileID: 1169491031}
+  _itemRecognizer: {fileID: 6266248594072609255}
+  _forceDrop: 10
 --- !u!1 &7861285835413353787
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,6 +507,7 @@ MonoBehaviour:
   _jumpKeyCode: 32
   _useItemKeyCode: 323
   _takeItemKeyCode: 101
+  _dropItemKeyCode: 103
   JumpKeyCodePress:
     m_PersistentCalls:
       m_Calls: []
@@ -514,6 +515,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   TakeItemKeyCodePress:
+    m_PersistentCalls:
+      m_Calls: []
+  DropItemKeyCodePress:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &7861285837069498988

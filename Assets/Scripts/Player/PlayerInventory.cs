@@ -3,24 +3,12 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    [SerializeField] private InputListener _inputListener;
     [SerializeField] private Transform _parentForWeapon;
-    [SerializeField] private ItemRecognizer _itemRecognizer;
     [SerializeField,Range(0,100f)] private int _inventorySize = 4;
     
     private List<Item> _inventory;
     private int _currentItemIndex = -1;
-
-    private void OnEnable()
-    {
-        _inputListener.TakeItemKeyCodePress.AddListener(OnTakeItemKeyCodePress);
-    }
-
-    private void OnDisable()
-    {
-        _inputListener.TakeItemKeyCodePress.RemoveListener(OnTakeItemKeyCodePress);
-    }
-
+    
     private void Start()
     {
         _inventory = new List<Item>();
@@ -73,9 +61,8 @@ public class PlayerInventory : MonoBehaviour
        return true;
    }
 
-   private void OnTakeItemKeyCodePress()
+   public void OnTakeItemKeyCodePress(Item recognitionItem)
    {
-       var recognitionItem = _itemRecognizer.RecognitionItem();
        if(recognitionItem==null) return;
        TakeItem(recognitionItem);
        SelectItemByIndex(_inventory.Count);
